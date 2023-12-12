@@ -32,11 +32,9 @@ pipeline {
                         app.push("latest")
                     }
                 }
-            }stage ('DeployToProduction') {
-    when {
-        branch 'master'
-    }
-    stage ('DeployToProduction') {
+            }
+        }
+        stage ('DeployToProduction') {
     when {
         branch 'master'
     }
@@ -55,5 +53,5 @@ pipeline {
                 sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@${env.prod_ip} \"docker run --restart always --name train-schedule -p 8080:8080 -d <DOCKER_HUB_USERNAME>/train-schedule:${env.BUILD_NUMBER}\""
             }
         }
-    }   
+    }
 }
